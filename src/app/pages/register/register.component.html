@@ -1,0 +1,21 @@
+<div class="register-container">
+  <div *ngIf="registerProcessForm.userShow">
+    <app-add-user
+      [registerProcessForm]="registerProcessForm"
+      [registerUserObj]="registerUserObj"
+    ></app-add-user>
+  </div>
+  <div *ngIf="registerProcessForm.driverShow">
+    <app-add-driver
+      [registerProcessForm]="registerProcessForm"
+      [registerDriverObj]="registerDriverObj"
+    ></app-add-driver>
+  </div>
+  <div *ngIf="registerProcessForm.vehicleShow">
+    <app-add-vehicle
+      [registerProcessForm]="registerProcessForm"
+      [registerVehicleObj]="registerVehicleObj"
+      (registerSubmit)="onRegister()"
+    ></app-add-vehicle>
+  </div>
+</div>

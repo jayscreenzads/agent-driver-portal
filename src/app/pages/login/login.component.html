@@ -1,0 +1,31 @@
+<div class="login-container">
+  <form action="" class="form">
+    <h1>Admin Portal Login</h1>
+    <input
+      type="text"
+      [(ngModel)]="loginObj.email"
+      placeholder="email"
+      name="email"
+    />
+    <input
+      type="password"
+      [(ngModel)]="loginObj.password"
+      placeholder="password"
+      name="password"
+    />
+    <button type="submit" (click)="onLogin()" class="submit">Login</button>
+    <div class="registerforgot">
+      <div class="">
+        <button (click)="goto('/register')" class="register-link">
+          <span>Register</span>
+        </button>
+      </div>
+      <span>|</span>
+      <div class="">
+        <button (click)="goto('/forgot')" class="forgot-password-link">
+          <span>Forgot Password</span>
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
