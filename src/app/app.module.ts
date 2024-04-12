@@ -24,6 +24,9 @@ import { ResetComponent } from './pages/reset/reset.component';
 import { AddUserComponent } from './components/add-user/add-user.component';
 import { AddDriverComponent } from './components/add-driver/add-driver.component';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
+import { PaymentComponent } from './pages/payment/payment.component';
+import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
+import { PaymentCancelComponent } from './pages/payment-cancel/payment-cancel.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +43,9 @@ import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.compon
     AddUserComponent,
     AddDriverComponent,
     AddVehicleComponent,
+    PaymentComponent,
+    PaymentSuccessComponent,
+    PaymentCancelComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +54,10 @@ import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.compon
     FormsModule,
     ToastrModule.forRoot(),
   ],
-  providers: [provideHttpClient(withInterceptors([customInterceptor])), provideAnimationsAsync()],
+  providers: [
+    provideHttpClient(withInterceptors([customInterceptor])),
+    provideAnimationsAsync(),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

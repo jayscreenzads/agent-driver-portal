@@ -7,6 +7,8 @@ import { authGuard } from './services/auth.guard';
 import { RegisterComponent } from './pages/register/register.component';
 import { ForgotComponent } from './pages/forgot/forgot.component';
 import { ResetComponent } from './pages/reset/reset.component';
+import { PaymentComponent } from './pages/payment/payment.component';
+import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 
 const routes: Routes = [
   {
@@ -40,6 +42,14 @@ const routes: Routes = [
   {
     path: 'reset/:token',
     component: ResetComponent,
+  },
+  {
+    path: 'payment',
+    component: PaymentComponent,
+  },
+  {
+    path: 'success',
+    component: PaymentSuccessComponent,
   },
 ];
 
