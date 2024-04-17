@@ -11,7 +11,7 @@ import {
   provideHttpClient,
   withInterceptors,
 } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { customInterceptor } from './services/custom.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import { HeaderComponent } from './components/header/header.component';
@@ -21,8 +21,6 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { RegisterComponent } from './pages/register/register.component';
 import { ForgotComponent } from './pages/forgot/forgot.component';
 import { ResetComponent } from './pages/reset/reset.component';
-import { AddUserComponent } from './components/add-user/add-user.component';
-import { AddDriverComponent } from './components/add-driver/add-driver.component';
 import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
@@ -40,8 +38,6 @@ import { PaymentCancelComponent } from './pages/payment-cancel/payment-cancel.co
     RegisterComponent,
     ForgotComponent,
     ResetComponent,
-    AddUserComponent,
-    AddDriverComponent,
     AddVehicleComponent,
     PaymentComponent,
     PaymentSuccessComponent,
@@ -52,6 +48,7 @@ import { PaymentCancelComponent } from './pages/payment-cancel/payment-cancel.co
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     ToastrModule.forRoot(),
   ],
   providers: [
