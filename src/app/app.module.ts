@@ -25,6 +25,8 @@ import { AddVehicleComponent } from './components/add-vehicle/add-vehicle.compon
 import { PaymentComponent } from './pages/payment/payment.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { PaymentCancelComponent } from './pages/payment-cancel/payment-cancel.component';
+import { OtpSendComponent } from './pages/otp-send/otp-send.component';
+import { OtpVerifyComponent } from './pages/otp-verify/otp-verify.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { PaymentCancelComponent } from './pages/payment-cancel/payment-cancel.co
     PaymentComponent,
     PaymentSuccessComponent,
     PaymentCancelComponent,
+    OtpSendComponent,
+    OtpVerifyComponent,
   ],
   imports: [
     BrowserModule,

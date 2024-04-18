@@ -9,6 +9,8 @@ import { ForgotComponent } from './pages/forgot/forgot.component';
 import { ResetComponent } from './pages/reset/reset.component';
 import { PaymentComponent } from './pages/payment/payment.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
+import { OtpSendComponent } from './pages/otp-send/otp-send.component';
+import { OtpVerifyComponent } from './pages/otp-verify/otp-verify.component';
 
 const routes: Routes = [
   {
@@ -50,6 +52,14 @@ const routes: Routes = [
   {
     path: 'success',
     component: PaymentSuccessComponent,
+  },
+  {
+    path: 'otp-send',
+    component: OtpSendComponent,
+  },
+  {
+    path: 'otp-verify',
+    component: OtpVerifyComponent,
   },
 ];
 

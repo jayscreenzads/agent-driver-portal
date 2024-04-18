@@ -13,37 +13,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrl: './register.component.css',
 })
 export class RegisterComponent {
-  // registerUserObj: any = {
-  //   firstName: '',
-  //   middleName: '',
-  //   lastName: '',
-  //   suffixName: '',
-  //   dateOfBirth: '',
-  //   addressLine1: '',
-  //   addressLine2: '',
-  //   email: '',
-  //   password: '',
-  //   confirmPassword: '',
-  //   role: 'AGENT_DRIVER',
-  // };
-
-  // registerDriverObj: any = {
-  //   dl: '',
-  //   ssn: '',
-  //   preferredLoc: '',
-  //   dateRegistered: '',
-  //   dateApproved: '',
-  //   imageData: FileList,
-  // };
-
-  // registerVehicleObj: any = {
-  //   vehicleMake: '',
-  //   vehicleModel: '',
-  //   vehicleYear: '',
-  // };
-
-  // registerObj: any = {};
-
   router = inject(Router);
   toastr = inject(ToastrService);
 
@@ -107,6 +76,27 @@ export class RegisterComponent {
     private vehicleSrv: VehicleService
   ) {}
 
+  ngOnInit() {
+    this.isAuthenticated();
+    this.isOTPVerified();
+  }
+
+  isOTPVerified() {
+    const otpVerified = localStorage.getItem('otpVerified');
+    if (otpVerified !== null) {
+      this.router.navigateByUrl('/register');
+    } else {
+      this.router.navigateByUrl('/otp-send?page=register');
+    }
+  }
+
+  isAuthenticated() {
+    const accessToken = localStorage.getItem('accessToken');
+    if (accessToken !== null) {
+      this.router.navigateByUrl('/dashboard');
+    }
+  }
+
   get f() {
     return this.registerForm.controls;
   }
@@ -133,12 +123,6 @@ export class RegisterComponent {
 
   submit() {
     console.log(this.registerForm.value);
-    // this.http
-    //   .post('http://localhost:8001/upload.php', this.myForm.value)
-    //   .subscribe((res) => {
-    //     console.log(res);
-    //     alert('Uploaded Successfully.');
-    //   });
 
     this.userSrv.onRegister(this.registerForm.value).subscribe(
       (userRes: any) => {
@@ -184,93 +168,4 @@ export class RegisterComponent {
       }
     );
   }
-
-  ngOnInit() {
-    this.isAuthenticated();
-    // this.registerObj = {
-    //   ...this.registerUserObj,
-    //   ...this.registerDriverObj,
-    //   ...this.registerVehicleObj,
-    // };
-  }
-
-  isAuthenticated() {
-    const accessToken = localStorage.getItem('accessToken');
-    if (accessToken !== null) {
-      this.router.navigateByUrl('/dashboard');
-    }
-  }
-
-  // onRegister() {
-  //   const registerObj = {
-  //     ...this.registerUserObj,
-  //     ...this.registerDriverObj,
-  //     ...this.registerVehicleObj,
-  //   };
-
-  //   console.log('parent: ', registerObj);
-
-  //   this.userSrv.onRegister(this.registerUserObj).subscribe(
-  //     (userRes: any) => {
-  //       console.log('userRes: ', userRes);
-
-  //       const driverPayload: any = {
-  //         ...this.registerDriverObj,
-  //         userId: userRes?.data?.user?.id,
-  //       };
-
-  //       let formData: any = new FormData();
-
-  //       formData.append('file', driverPayload);
-
-  //       this.driverSrv.onCreateDriver(driverPayload).subscribe(
-  //         (driverRes: any) => {
-  //           console.log('driverRes: ', driverRes);
-
-  //           const vehiclePayload: any = {
-  //             ...this.registerVehicleObj,
-  //             driverId: driverRes?.data?.driver?.id,
-  //           };
-
-  //           this.vehicleSrv.onCreateVehicle(vehiclePayload).subscribe(
-  //             (vehicleRes: any) => {
-  //               console.log('vehicleRes: ', vehicleRes);
-
-  //               console.log('success');
-  //               this.toastr.success('New agent driver registered successfully');
-  //               this.router.navigateByUrl('/login');
-  //             },
-  //             (vehicleError: any) => {
-  //               console.error('Error creating vehicle: ', vehicleError);
-  //               // Handle vehicle creation error here
-  //             }
-  //           );
-  //         },
-  //         (driverError: any) => {
-  //           console.error('Error creating driver: ', driverError);
-  //           // Handle driver creation error here
-  //         }
-  //       );
-  //     },
-  //     (userError: any) => {
-  //       console.error('Error registering user: ', userError);
-  //       this.toastr.error(userError?.error?.message);
-  //     }
-  //   );
-  // }
-
-  // onRegister() {
-  //   console.log('onRegister');
-  //   this.userSrv.onRegister(this.registerObj).subscribe(
-  //     (res: any) => {
-  //       console.log('success');
-  //       this.toastr.success('Registered successfully');
-  //       this.router.navigateByUrl('/login');
-  //     },
-  //     (error: any) => {
-  //       // Check if error object and error.error object exist
-  //       // this.toastr.error(error?.error?.message);
-  //     }
-  //   );
-  // }
 }

@@ -21,11 +21,21 @@ export class LoginComponent {
 
   ngOnInit() {
     this.isAuthenticated();
+    this.isOTPVerified();
   }
 
   goto(url: string) {
     if (url !== null) {
       this.router.navigateByUrl(url);
+    }
+  }
+
+  isOTPVerified() {
+    const otpVerified = localStorage.getItem('otpVerified');
+    if (otpVerified !== null) {
+      this.router.navigateByUrl('/login');
+    } else {
+      this.router.navigateByUrl('/otp-send?page=login');
     }
   }
 

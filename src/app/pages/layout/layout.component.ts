@@ -30,6 +30,7 @@ export class LayoutComponent {
     localStorage.removeItem('user');
     localStorage.removeItem('accessToken');
     localStorage.removeItem('refreshToken');
+    localStorage.removeItem('otpVerified');
     this.router.navigateByUrl('/login');
     this.toastr.success('Logout successful');
   }
