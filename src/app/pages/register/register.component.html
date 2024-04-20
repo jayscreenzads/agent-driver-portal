@@ -323,31 +323,36 @@
         </div>
       </div>
     </div>
-    <div class="form-group">
-      <label>Date Approved</label>
-      <input
-        type="date"
-        placeholder="Date Approved"
-        formControlName="dateApproved"
-        name="dateApproved"
-        class="form-control"
-      />
-    </div>
 
     <!-- Vehice Section -->
     <div class="form-container">
       <h1 class="sub-title">Vehicle Information</h1>
       <div class="form-group">
         <label>Vehicle Make</label>
-        <input type="text" placeholder="Vehicle Make" name="vehicleMake" />
+        <input
+          type="text"
+          placeholder="Vehicle Make"
+          formControlName="vehicleMake"
+          name="vehicleMake"
+        />
       </div>
       <div class="form-group">
         <label>Vehicle Model</label>
-        <input type="text" placeholder="Vehicle Model" name="vehicleModel" />
+        <input
+          type="text"
+          placeholder="Vehicle Model"
+          formControlName="vehicleModel"
+          name="vehicleModel"
+        />
       </div>
       <div class="form-group">
         <label>Vehicle Year</label>
-        <input type="text" placeholder="Vehicle Year" name="vehicleYear" />
+        <input
+          type="text"
+          placeholder="Vehicle Year"
+          formControlName="vehicleYear"
+          name="vehicleYear"
+        />
       </div>
       <div class="login">
         <div class="">
@@ -359,7 +364,7 @@
     </div>
 
     <div class="form-group">
-      <label for="file">File</label>
+      <label for="file">Upload Image</label>
       <input
         formControlName="file"
         id="file"
@@ -373,7 +378,7 @@
         class="alert alert-danger"
       >
         <div *ngIf="f['file'].errors && f['file'].errors['required']">
-          File is required.
+          Image is required.
         </div>
       </div>
     </div>

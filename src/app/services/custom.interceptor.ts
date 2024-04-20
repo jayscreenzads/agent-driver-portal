@@ -18,22 +18,24 @@ export const customInterceptor: HttpInterceptorFn = (req, next) => {
   const cloneRequest = req.clone({
     setHeaders: {
       Authorization: `Bearer ${parsedAccessToken}`,
+      ContentType: 'application/json',
     },
   });
 
   // refresh token fx
   return next(cloneRequest).pipe(
     catchError((error: any) => {
-      console.log('http interceptor: ', error.error);
+      console.log('http interceptor cloneRequest.pipe: ', error.error.error);
 
       if (error.error.errorCode === 1006 && error.status === 422) {
         console.log(
           'error.errorCode === 1006 && error.status === 422: ',
-          error.error
+          error.error.error
         );
-        toastr.error(error.error.message);
+        toastr.error(error.error.error);
       }
 
+      // expired token
       if (error.status === 401 && parsedAccessToken !== null) {
         const isRefresh = confirm(
           'Your session is expired. Do you want to Continue?'
@@ -42,6 +44,17 @@ export const customInterceptor: HttpInterceptorFn = (req, next) => {
         if (isRefresh) {
           userSrv.$refreshToken.next(true);
         }
+      }
+
+      // unauthenticated
+      if (error.status === 401 && parsedAccessToken === null) {
+        console.log('error.status === 400: ', error.error);
+        toastr.error(`${error.error.error}`);
+      }
+
+      if (error.status === 500) {
+        console.log('error.status === 500: ', error.error);
+        toastr.error(`${error.error.error}`);
       }
       throw new Error('error');
     })

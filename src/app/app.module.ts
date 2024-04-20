@@ -27,6 +27,8 @@ import { PaymentSuccessComponent } from './pages/payment-success/payment-success
 import { PaymentCancelComponent } from './pages/payment-cancel/payment-cancel.component';
 import { OtpSendComponent } from './pages/otp-send/otp-send.component';
 import { OtpVerifyComponent } from './pages/otp-verify/otp-verify.component';
+import { AccountApprovalComponent } from './pages/account-approval/account-approval.component';
+import { ResubmitImageComponent } from './pages/resubmit-image/resubmit-image.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +48,8 @@ import { OtpVerifyComponent } from './pages/otp-verify/otp-verify.component';
     PaymentCancelComponent,
     OtpSendComponent,
     OtpVerifyComponent,
+    AccountApprovalComponent,
+    ResubmitImageComponent,
   ],
   imports: [
     BrowserModule,

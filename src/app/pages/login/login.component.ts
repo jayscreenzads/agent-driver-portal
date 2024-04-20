@@ -64,8 +64,9 @@ export class LoginComponent {
           this.toastr.error(res.message);
         }
       },
-      (error) => {
-        this.toastr.error(error.error.error);
+      (error: any) => {
+        console.log('login error: ', error?.error);
+        // this.toastr.error(error?.error);
       }
     );
   }

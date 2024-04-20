@@ -1,0 +1,32 @@
+<div class="approval-container">
+  <form action="" class="form" [formGroup]="approvalForm" (ngSubmit)="submit()">
+    <h1 class="title">Agent Driver Approval</h1>
+    <div class="form-container">
+      <div class="form-group">
+        <select id="status" formControlName="status" name="status">
+          <option value="">Please Select Status</option>
+          <option value="APPROVED">Approved</option>
+          <option value="DECLINED">Declined</option>
+          <option value="RESUBMIT_IMAGE">Resubmit Image</option>
+        </select>
+        <div
+          *ngIf="f['status'].touched && f['status'].invalid"
+          class="alert alert-danger"
+        >
+          <div *ngIf="f['status'].errors && f['status'].errors['required']">
+            Status is required.
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <button
+        class="btn btn-success form-control"
+        type="submit"
+        [disabled]="disableButton"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

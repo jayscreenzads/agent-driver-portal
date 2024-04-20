@@ -11,6 +11,8 @@ import { PaymentComponent } from './pages/payment/payment.component';
 import { PaymentSuccessComponent } from './pages/payment-success/payment-success.component';
 import { OtpSendComponent } from './pages/otp-send/otp-send.component';
 import { OtpVerifyComponent } from './pages/otp-verify/otp-verify.component';
+import { AccountApprovalComponent } from './pages/account-approval/account-approval.component';
+import { ResubmitImageComponent } from './pages/resubmit-image/resubmit-image.component';
 
 const routes: Routes = [
   {
@@ -60,6 +62,15 @@ const routes: Routes = [
   {
     path: 'otp-verify',
     component: OtpVerifyComponent,
+  },
+  {
+    path: 'account-approval/:userId',
+    component: AccountApprovalComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: 'resubmit-image/:userId',
+    component: ResubmitImageComponent,
   },
 ];
 

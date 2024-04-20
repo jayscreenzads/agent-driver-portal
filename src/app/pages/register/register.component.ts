@@ -50,8 +50,6 @@ export class RegisterComponent {
       Validators.minLength(3),
     ]),
     dateRegistered: new FormControl('', [Validators.required]),
-    dateApproved: new FormControl(),
-    userId: new FormControl('', [Validators.required]),
 
     // Vehicle Section
     vehicleMake: new FormControl('', [
@@ -123,44 +121,82 @@ export class RegisterComponent {
 
   submit() {
     console.log(this.registerForm.value);
+    if (this.registerForm.invalid) {
+      // here potentially add some visual feedback for a user
+      console.log('Please fill all the required fields');
+      this.toastr.error('Please fill all the required fields');
+      return;
+    }
 
     this.userSrv.onRegister(this.registerForm.value).subscribe(
       (userRes: any) => {
         console.log('userRes: ', userRes);
 
-        const driverPayload: any = {
-          ...this.registerForm.value,
-          userId: userRes?.data?.user?.id,
-        };
+        if (userRes?.data?.user) {
+          const driverPayload: any = {
+            ...this.registerForm.value,
+            userId: userRes?.data?.user?.id,
+          };
 
-        this.driverSrv.onCreateDriver(driverPayload).subscribe(
-          (driverRes: any) => {
-            console.log('driverRes: ', driverRes);
+          this.driverSrv.onCreateDriver(driverPayload).subscribe(
+            (driverRes: any) => {
+              console.log('driverRes: ', driverRes);
 
-            const vehiclePayload: any = {
-              ...this.registerForm.value,
-              driverId: driverRes?.data?.driver?.id,
-            };
+              if (driverRes?.data?.driver) {
+                const vehiclePayload: any = {
+                  ...this.registerForm.value,
+                  driverId: driverRes?.data?.driver?.id,
+                };
 
-            this.vehicleSrv.onCreateVehicle(vehiclePayload).subscribe(
-              (vehicleRes: any) => {
-                console.log('vehicleRes: ', vehicleRes);
+                this.vehicleSrv.onCreateVehicle(vehiclePayload).subscribe(
+                  (vehicleRes: any) => {
+                    console.log('vehicleRes: ', vehicleRes);
 
-                console.log('success');
-                this.toastr.success('New agent driver registered successfully');
-                this.router.navigateByUrl('/payment');
-              },
-              (vehicleError: any) => {
-                console.error('Error creating vehicle: ', vehicleError);
-                // Handle vehicle creation error here
+                    if (vehicleRes?.data?.vehicle) {
+                      this.driverSrv
+                        .onEmailCreatedDriver(userRes?.data?.user?.id)
+                        .subscribe(
+                          (emailCreatedDriverRes: any) => {
+                            console.log(
+                              'emailCreatedDriverRes: ',
+                              emailCreatedDriverRes
+                            );
+
+                            console.log('success');
+                            this.toastr.success(
+                              'New agent driver registered successfully. Please check daily your email for approval of your account.'
+                            );
+                            this.router.navigateByUrl('/login');
+                          },
+                          (vehicleError: any) => {
+                            console.error(
+                              'Error creating vehicle: ',
+                              vehicleError
+                            );
+                            // Handle vehicle creation error here
+                          }
+                        );
+                    } else {
+                      console.error('Error creating vehicle');
+                    }
+                  },
+                  (vehicleError: any) => {
+                    console.error('Error creating vehicle: ', vehicleError);
+                    // Handle vehicle creation error here
+                  }
+                );
+              } else {
+                console.error('Error registering driver');
               }
-            );
-          },
-          (driverError: any) => {
-            console.error('Error creating driver: ', driverError);
-            // Handle driver creation error here
-          }
-        );
+            },
+            (driverError: any) => {
+              console.error('Error creating driver: ', driverError);
+              // Handle driver creation error here
+            }
+          );
+        } else {
+          console.error('Error registering user');
+        }
       },
       (userError: any) => {
         console.error('Error registering user: ', userError);
